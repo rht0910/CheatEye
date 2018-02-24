@@ -1,0 +1,13 @@
+name: CheatEye
+main: tk.rht0910.cheateye.CheatEye
+version: 1.0
+
+commands:
+   ce:
+      description: Root command of CheatEye.
+      usage: /<command> [args]
+      permission: cheateye.help
+   cheateye:
+      description: Root command of CheatEye.
+      usage: /<command> [args]
+      permission: cheateye.help
