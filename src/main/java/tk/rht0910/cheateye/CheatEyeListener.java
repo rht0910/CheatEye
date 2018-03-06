@@ -16,8 +16,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tk.rht0910.cheateye.util.Utils;
 
 public class CheatEyeListener implements Listener {
-	public synchronized void kickPlayer(Player player, String reason) {
-		player.kickPlayer(reason);
+	public void kickPlayer(Player p, String r) {
+		final Player player = p;
+		final String reason = r;
+		Bukkit.getScheduler().runTask(CheatEye.getPlugin(CheatEye.class), new Runnable() {
+			public void run() {
+				player.kickPlayer(reason);
+			}
+		});
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

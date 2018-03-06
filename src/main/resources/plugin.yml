@@ -1,13 +1,16 @@
 name: CheatEye
 main: tk.rht0910.cheateye.CheatEye
 version: 1.0
+depend: [TomeitoLib, ProtocolLib]
+softdepend: [MCBans]
 
 commands:
-   ce:
-      description: Root command of CheatEye.
-      usage: /<command> [args]
-      permission: cheateye.help
    cheateye:
       description: Root command of CheatEye.
       usage: /<command> [args]
       permission: cheateye.help
+      aliases: [ce]
+
+permissions:
+    cheateye.*:
+      description: Gives access to all CheatEye commands
