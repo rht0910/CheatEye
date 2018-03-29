@@ -1,5 +1,11 @@
 package tk.rht0910.cheateye.executor;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,9 +42,40 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			}
 			sender.sendMessage(message);
 		} else if(args[0].equalsIgnoreCase("resetcounter")) {
-			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 0");
+			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 1");
 			WaitEvent.i = 0;
-			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0");
+			sender.sendMessage(ChatColor.GREEN + "Counter reset: 1");
+		} else if(args[0].equalsIgnoreCase("clearLog")) {
+			URL url = null;
+			try {
+				url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
+			HttpURLConnection conn = null;
+			try {
+				conn = (HttpURLConnection) url.openConnection();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			conn.setAllowUserInteraction(false);
+			conn.setInstanceFollowRedirects(true);
+			try {
+				conn.setRequestMethod("GET");
+			} catch (ProtocolException e) {
+				e.printStackTrace();
+			}
+			try {
+				conn.connect();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			sender.sendMessage(ChatColor.GREEN + "Commands:");
+			sender.sendMessage(ChatColor.BLUE + " - /ce initmcbans");
+			sender.sendMessage(ChatColor.BLUE + " - /ce checkmcbans");
+			sender.sendMessage(ChatColor.BLUE + " - /ce resetcounter");
+			sender.sendMessage(ChatColor.BLUE + " - /ce clearLog");
 		}
 		return true;
 	}

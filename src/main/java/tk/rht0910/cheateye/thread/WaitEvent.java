@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import tk.rht0910.cheateye.util.ConfigUtil;
 
 public class WaitEvent extends Thread {
-	public static int i = 0;
+	public static int i = 1;
 
 	@Override
 	public void run() {
@@ -66,7 +66,7 @@ public class WaitEvent extends Thread {
 						}
 						filedata = sb.toString().replaceAll("\n", "").toString().replaceAll("_", " ");
 						filedata2 = filedata.split("&");
-						data = filedata2[0].split("@");
+						data = filedata2[i].split("@");
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
 								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", data[1], data[0]));
