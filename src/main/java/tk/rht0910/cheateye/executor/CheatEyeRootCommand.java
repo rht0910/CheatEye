@@ -42,9 +42,9 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			}
 			sender.sendMessage(message);
 		} else if(args[0].equalsIgnoreCase("resetcounter")) {
-			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 1");
+			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 0");
 			WaitEvent.i = 0;
-			sender.sendMessage(ChatColor.GREEN + "Counter reset: 1");
+			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0");
 		} else if(args[0].equalsIgnoreCase("clearLog")) {
 			URL url = null;
 			try {
