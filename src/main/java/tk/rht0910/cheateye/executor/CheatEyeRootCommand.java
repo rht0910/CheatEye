@@ -70,12 +70,15 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else if(args[0].equalsIgnoreCase("start")) {
+			new WaitEvent().start();
 		} else {
 			sender.sendMessage(ChatColor.GREEN + "Commands:");
 			sender.sendMessage(ChatColor.BLUE + " - /ce initmcbans");
 			sender.sendMessage(ChatColor.BLUE + " - /ce checkmcbans");
 			sender.sendMessage(ChatColor.BLUE + " - /ce resetcounter");
 			sender.sendMessage(ChatColor.BLUE + " - /ce clearLog");
+			sender.sendMessage(ChatColor.BLUE + " - /ce start");
 		}
 		return true;
 	}
