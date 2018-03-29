@@ -18,6 +18,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import tk.rht0910.cheateye.util.ConfigUtil;
+import tk.rht0910.tomeito_core.utils.Log;
 
 public class WaitEvent extends Thread {
 	public static int i = 0;
@@ -47,6 +48,7 @@ public class WaitEvent extends Thread {
 				e.printStackTrace();
 			}
 			for(WatchEvent<?> event1 : watchkey.pollEvents()) {
+				Log.info("Event hooked");
 				if(event1.kind() == StandardWatchEventKinds.OVERFLOW) continue;
 				Path name = null;
 				name = (Path) event1.context();
@@ -71,9 +73,11 @@ public class WaitEvent extends Thread {
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
 								String id = getID(data[0]);
-								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", id, data[i]));
-								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", id, data[i]));
+								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s [ %s ], Message: %s", id, data[i+1], data[i]));
+								p.sendMessage(ChatColor.RED + String.format("%s [ %s ] はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", id, data[i+1], data[i]));
+								Log.error("Cheater: " + id + ", Message: " + data[i]);
 								Bukkit.getBanList(Type.NAME).addBan(id, data[i+1], null, "land_crasher");
+								Log.info("Banned: " + id);
 							}
 						}
 						//URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
@@ -90,14 +94,16 @@ public class WaitEvent extends Thread {
 				watchkey.reset();
 				i++;
 				i++;
-				continue;
 			}
+			new WaitEvent().start();
 		}
 	}
 
 	public String getID(String ipaddress) {
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			if(p.getAddress().getAddress().toString() == ipaddress) {
+			Log.info(p.getName() + ": " + p.getAddress().getAddress().toString() + ", selected: " + ipaddress);
+			if(p.getAddress().getAddress().toString().replaceFirst("/", "") == ipaddress) {
+				Log.info("Selected: " + p.getName());
 				return p.getName();
 			} else {
 				continue;
