@@ -70,6 +70,7 @@ public class WaitEvent extends Thread {
 						filedata = sb.toString().replaceAll("_", " ");
 						filedata2 = filedata.split("&");
 						data = filedata2[0].split("@");
+						new WaitEvent().start();
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
 								String id = getID(data[0]);
@@ -95,7 +96,6 @@ public class WaitEvent extends Thread {
 				i++;
 				i++;
 			}
-			new WaitEvent().start();
 		}
 	}
 

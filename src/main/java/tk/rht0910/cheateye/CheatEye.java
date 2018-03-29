@@ -111,6 +111,31 @@ public class CheatEye extends JavaPlugin implements TabCompleter {
 		Log.info("Disabling CheatEye");
 		HandlerList.unregisterAll(Bukkit.getPluginManager().getPlugin(this.getName()));
 		Log.info("Unregistered listeners");
+		URL url = null;
+		try {
+			url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		HttpURLConnection conn = null;
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		conn.setAllowUserInteraction(false);
+		conn.setInstanceFollowRedirects(true);
+		try {
+			conn.setRequestMethod("GET");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn.connect();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.info("Cleared logs");
 		Log.info("Disabled CheatEye");
 	}
 
