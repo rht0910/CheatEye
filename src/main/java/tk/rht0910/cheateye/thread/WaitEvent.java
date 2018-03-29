@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,17 +65,21 @@ public class WaitEvent extends Thread {
 						while((output = fr.read()) != -1) {
 							sb.append((char)output);
 						}
-						filedata = sb.toString().replaceAll("\n", "");
+						filedata = sb.toString().replaceAll("\n", "").toString().replaceAll("_", " ");
 						filedata2 = filedata.split("&");
 						data = filedata2[i].split("@");
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
 								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", data[1], data[0]));
 								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", data[1], data[0]));
-								p.sendMessage("Data[0]: " + data[0]);
-								p.sendMessage("Data[1]: " + data[1]);
 							}
 						}
+						URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
+						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+						conn.setAllowUserInteraction(false);
+						conn.setInstanceFollowRedirects(true);
+						conn.setRequestMethod("GET");
+						conn.connect();
 					} catch (IOException e) {
 						e.printStackTrace();
 						continue;
