@@ -25,7 +25,9 @@ public class WaitEvent extends Thread {
 		WatchService watcher = null;
 		WatchKey watchkey = null;
 		String filedata;
+		String[] filedata2;
 		String[] data;
+		int i = 0;
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
 		} catch (IOException e) {
@@ -47,11 +49,12 @@ public class WaitEvent extends Thread {
 				Path name = null;
 				name = (Path) event1.context();
 				if(event1.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
-					File file = name.toFile();
+					File file = new File(ConfigUtil.load("watchDir", "/var/www/api/cheateye/v1/logs/").toString() + name.toFile());
 					FileReader fr = null;
 					try {
-						fr = new FileReader(file.getAbsolutePath());
+						fr = new FileReader(file);
 					} catch (FileNotFoundException e) {
+
 						e.printStackTrace();
 					}
 					int output;
@@ -60,20 +63,25 @@ public class WaitEvent extends Thread {
 						while((output = fr.read()) != -1) {
 							sb.append((char)output);
 						}
-						filedata = sb.toString();
-						data = filedata.split("|");
-						data[0] = data[0].replaceAll("_", " ");
+						filedata = sb.toString().replaceAll("\n", "");
+						filedata2 = filedata.split("&");
+						data = filedata2[i].split("@");
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
-								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: ", data[1], data[0]));
+								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", data[1], data[0]));
 								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", data[1], data[0]));
+								p.sendMessage("Data[0]: " + data[0]);
+								p.sendMessage("Data[1]: " + data[1]);
 							}
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
+						continue;
 					}
 				}
 				watchkey.reset();
+				i++;
+				continue;
 			}
 		}
 	}
