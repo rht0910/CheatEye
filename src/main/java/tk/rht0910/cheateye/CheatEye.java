@@ -1,16 +1,5 @@
 package tk.rht0910.cheateye;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,12 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import tk.rht0910.cheateye.executor.CheatEyeRootCommand;
-import tk.rht0910.cheateye.util.ConfigUtil;
+import tk.rht0910.cheateye.thread.WaitEvent;
 import tk.rht0910.tomeito_core.utils.Log;
 
 public class CheatEye extends JavaPlugin implements TabCompleter {
@@ -73,7 +61,7 @@ public class CheatEye extends JavaPlugin implements TabCompleter {
 			data.getAPI();
 			long estimatedTime = System.nanoTime() - startTime;
 			Log.info("CheatEye v1.0 has fully startup @" + TimeUnit.MILLISECONDS.convert(estimatedTime, TimeUnit.NANOSECONDS) + "ms");
-			waitEvent();
+			new WaitEvent().start();
 		} catch(Throwable e) {
 			Log.error("Please contact to the developers!");
 			Log.error("Stack trace dumped below:");
@@ -114,63 +102,5 @@ public class CheatEye extends JavaPlugin implements TabCompleter {
 			}
 		}
 		return super.onTabComplete(sender, command, alias, args);
-	}
-
-	public void waitEvent() {
-		Path dir = Paths.get(new File(ConfigUtil.load("watchDir", "/var/www/api/cheateye/v1/logs/").toString()).toURI());
-		WatchService watcher = null;
-		WatchKey watchkey = null;
-		String filedata;
-		String[] data;
-		try {
-			watcher = FileSystems.getDefault().newWatchService();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		for(;;) {
-			try {
-				watchkey = watcher.take();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			for(WatchEvent<?> event1 : watchkey.pollEvents()) {
-				if(event1.kind() == StandardWatchEventKinds.OVERFLOW) continue;
-				Path name = null;
-				name = (Path) event1.context();
-				if(event1.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
-					File file = name.toFile();
-					FileReader fr = null;
-					try {
-						fr = new FileReader(file);
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}
-					int output;
-					StringBuffer sb = new StringBuffer();
-					try {
-						while((output = fr.read()) != -1) {
-							sb.append((char)output);
-						}
-						filedata = sb.toString();
-						data = filedata.split("|");
-						data[0] = data[0].replaceAll("_", " ");
-						for(Player p : Bukkit.getOnlinePlayers()) {
-							if(p.isOp()) {
-								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: ", data[1], data[0]));
-								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", data[1], data[0]));
-							}
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				watchkey.reset();
-			}
-		}
 	}
 }

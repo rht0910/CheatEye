@@ -36,9 +36,20 @@
     <repository>
       <releases />
       <snapshots />
+      <id>rht0910-central</id>
+      <name>rht0910's maven central[proxy]</name>
+      <url>https://repo.rht0910.tk/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <releases />
+      <snapshots />
       <id>tomeito-lib</id>
       <name>tomeito-lib Repository</name>
       <url>https://repo.rht0910.tk/repository/tomeito-lib/</url>
+    </repository>
+    <repository>
+      <id>dmulloy2-repo</id>
+      <url>http://repo.dmulloy2.net/content/groups/public/</url>
     </repository>
     <repository>
       <id>spigot-repo</id>
@@ -115,6 +126,13 @@
           <groupId>org.yaml</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.mcbans.firestar.mcbans</groupId>
+      <artifactId>MCBans</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/MCBans.jar</systemPath>
     </dependency>
   </dependencies>
 </project>
