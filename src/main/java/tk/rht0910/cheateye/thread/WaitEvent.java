@@ -69,8 +69,10 @@ public class WaitEvent extends Thread {
 						data = filedata2[0].split("@");
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(p.isOp()) {
-								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", data[i+1], data[i]));
-								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", data[i+1], data[i]));
+								String id = getID(data[0]);
+								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", id, data[i]));
+								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", id, data[i]));
+								//Bukkit.getBanList(Type.NAME).addBan(id, data[i+1], Date.valueOf("9999-12-31"), "land_crasher");
 							}
 						}
 						//URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
@@ -90,5 +92,16 @@ public class WaitEvent extends Thread {
 				continue;
 			}
 		}
+	}
+
+	public String getID(String ipaddress) {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			if(p.getAddress().getAddress().toString() == ipaddress) {
+				return p.getName();
+			} else {
+				continue;
+			}
+		}
+		return "";
 	}
 }

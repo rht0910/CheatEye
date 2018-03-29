@@ -37,5 +37,6 @@
 	<classpathentry kind="lib" path="D:/Documents/MCBans.jar"/>
 	<classpathentry kind="lib" path="D:/Documents/Essentials.jar"/>
 	<classpathentry kind="lib" path="D:/Documents/EssentialsChat.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/IP-Check.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
