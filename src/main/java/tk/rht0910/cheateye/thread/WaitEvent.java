@@ -12,6 +12,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
+import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -72,7 +73,7 @@ public class WaitEvent extends Thread {
 								String id = getID(data[0]);
 								p.sendMessage(ChatColor.RED + String.format("Identified a cheater(hack or using illegally tool) suspect person: %s, Message: %s", id, data[i]));
 								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", id, data[i]));
-								//Bukkit.getBanList(Type.NAME).addBan(id, data[i+1], Date.valueOf("9999-12-31"), "land_crasher");
+								Bukkit.getBanList(Type.NAME).addBan(id, data[i+1], null, "land_crasher");
 							}
 						}
 						//URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
