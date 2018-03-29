@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +19,8 @@ import org.bukkit.entity.Player;
 import tk.rht0910.cheateye.util.ConfigUtil;
 
 public class WaitEvent extends Thread {
+	public static int i = 0;
+
 	@Override
 	public void run() {
 		Path dir = Paths.get(new File(ConfigUtil.load("watchDir", "/var/www/api/cheateye/v1/logs/").toString()).toURI());
@@ -29,7 +29,6 @@ public class WaitEvent extends Thread {
 		String filedata;
 		String[] filedata2;
 		String[] data;
-		int i = 0;
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
 		} catch (IOException e) {
@@ -74,12 +73,12 @@ public class WaitEvent extends Thread {
 								p.sendMessage(ChatColor.RED + String.format("%s はチーター(ハック、もしくは不正ツールの使用)の疑いがあります。メッセージ: %s", data[1], data[0]));
 							}
 						}
-						URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
-						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-						conn.setAllowUserInteraction(false);
-						conn.setInstanceFollowRedirects(true);
-						conn.setRequestMethod("GET");
-						conn.connect();
+						//URL url = new URL("https://api.rht0910.tk/cheateye/v1/clear");
+						//HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+						//conn.setAllowUserInteraction(false);
+						//conn.setInstanceFollowRedirects(true);
+						//conn.setRequestMethod("GET");
+						//conn.connect();
 					} catch (IOException e) {
 						e.printStackTrace();
 						continue;

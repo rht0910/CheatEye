@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import tk.rht0910.cheateye.Data;
+import tk.rht0910.cheateye.thread.WaitEvent;
 import tk.rht0910.cheateye.util.Utils;
 
 public class CheatEyeRootCommand implements CommandExecutor {
@@ -34,6 +35,10 @@ public class CheatEyeRootCommand implements CommandExecutor {
 				message = ChatColor.RED + "MCBans is not initialized. Initialize -> /cheateye initmcbans";
 			}
 			sender.sendMessage(message);
+		} else if(args[0].equalsIgnoreCase("resetcounter")) {
+			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 0");
+			WaitEvent.i = 0;
+			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0");
 		}
 		return true;
 	}
