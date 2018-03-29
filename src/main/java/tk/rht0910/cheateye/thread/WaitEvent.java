@@ -50,7 +50,7 @@ public class WaitEvent extends Thread {
 					File file = name.toFile();
 					FileReader fr = null;
 					try {
-						fr = new FileReader(file);
+						fr = new FileReader(file.getAbsolutePath());
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
