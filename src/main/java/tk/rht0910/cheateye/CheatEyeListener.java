@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerLocaleChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import tk.rht0910.cheateye.util.ConfigUtil;
 import tk.rht0910.cheateye.util.Utils;
 
 public class CheatEyeListener implements Listener {
@@ -77,6 +78,8 @@ public class CheatEyeListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public boolean onPlayerQuit(PlayerQuitEvent e) {
+		ConfigUtil.addToList("players", e.getPlayer().getName());
+		ConfigUtil.addToList("ips", e.getPlayer().getAddress().getAddress().toString());
 		e.setQuitMessage(ChatColor.GRAY + e.getPlayer().getName() + " has left the server");
 		return true;
 	}

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tk.rht0910.cheateye</groupId>
   <artifactId>CheatEye</artifactId>
-  <version>0.0.1</version>
+  <version>0.1</version>
   <name>CheatEye</name>
   <description>Anti-Cheat System for Bukkit.</description>
     <build>

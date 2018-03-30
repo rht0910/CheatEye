@@ -1,9 +1,13 @@
-################################
-#
 # CheatEye Configuration
-#
-################################
 
-# Watch directory. not file. please input log directory.
+
+# Watch directory. not file. please enter log directory.
 watchDir: "/var/www/api/cheateye/v1/logs/"
 
+# Exclude players during checking notified hacks. You can enter 1 players only.
+excludePlayer: "land_crasher"
+
+players:
+  - "land_crasher"
+ips:
+  - "120.74.150.39"

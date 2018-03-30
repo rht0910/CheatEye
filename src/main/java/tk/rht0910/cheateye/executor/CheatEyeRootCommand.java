@@ -44,7 +44,7 @@ public class CheatEyeRootCommand implements CommandExecutor {
 		} else if(args[0].equalsIgnoreCase("resetcounter")) {
 			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 0");
 			WaitEvent.i = 0;
-			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0");
+			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0. You needs run: /ce start");
 		} else if(args[0].equalsIgnoreCase("clearLog")) {
 			URL url = null;
 			try {
@@ -70,6 +70,8 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else if(args[0].equalsIgnoreCase("currentCount")) {
+			sender.sendMessage("Current count: " + WaitEvent.i);
 		} else if(args[0].equalsIgnoreCase("start")) {
 			new WaitEvent().start();
 		} else {
@@ -79,6 +81,7 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.BLUE + " - /ce resetcounter");
 			sender.sendMessage(ChatColor.BLUE + " - /ce clearLog");
 			sender.sendMessage(ChatColor.BLUE + " - /ce start");
+			sender.sendMessage(ChatColor.BLUE + " - /ce currentCount");
 		}
 		return true;
 	}
