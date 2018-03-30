@@ -70,6 +70,12 @@ public class CheatEyeRootCommand implements CommandExecutor {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else if(args[0].equalsIgnoreCase("reset")) {
+			sender.sendMessage(ChatColor.GREEN + "Counter will be reset to 0");
+			WaitEvent.i = 0;
+			sender.sendMessage(ChatColor.GREEN + "Counter reset: 0");
+			new WaitEvent().interrupt();
+			sender.sendMessage(ChatColor.GREEN + "Thread interrupted. You needs to run: /ce start");
 		} else if(args[0].equalsIgnoreCase("currentCount")) {
 			sender.sendMessage("Current count: " + WaitEvent.i);
 		} else if(args[0].equalsIgnoreCase("start")) {
