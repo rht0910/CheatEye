@@ -18,3 +18,5 @@ For client(Advanced hack detection): https://github.com/rht0910/CheatEyeClient/r
 | Hack Name | Regex |
 | --------------------- | ----------------- |
 | ForgeWurst | N/A |
+
+**Depends on [TomeitoLib](https://github.com/rht0910/TomeitoLibrary), [ProtocolLib](http://ci.dmulloy2.net/job/ProtocolLib/).**
