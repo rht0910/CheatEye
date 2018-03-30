@@ -26,7 +26,12 @@ public class CheatEye extends JavaPlugin implements TabCompleter {
 	@Override
 	public void onEnable() {
 		try {
-			Log.color = ChatColor.GOLD;
+			try {
+				Log.color = ChatColor.GOLD;
+			} catch(Throwable e) {
+				Log.error("TomeitoLib is old version or not installed!");
+				e.printStackTrace();
+			}
 			Log.info("Starting CheatEye");
 
 			this.getConfig().options().copyDefaults(true);
