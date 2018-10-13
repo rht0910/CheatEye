@@ -48,7 +48,7 @@
     <repository>
         <id>tomeito-lib</id>
         <name>tomeito-lib Repository</name>
-        <url>https://repo.rht0910.tk/repository/tomeito-lib/</url>
+        <url>https://rht0910.tk/maven/</url>
         <releases>
             <enabled>true</enabled>
         </releases>
